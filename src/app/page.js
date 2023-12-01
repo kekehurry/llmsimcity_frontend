@@ -1,95 +1,60 @@
+"use client";
+import { useState, useEffect } from 'react';
 import Image from 'next/image'
 import styles from './page.module.css'
+import SimMap from './components/simmap.js'
+import Control from './components/control';
+import Loading from './components/loading';
 
 export default function Home() {
+  const serverUrl = "http://127.0.0.1:5001";
+  const [path, setPath] = useState([]);
+  const [residentData, setResidentData] = useState(null);
+  const [buildingData, setBuildingData] = useState(null);
+  const [stepCount, setStepCount] = useState(0);
+  const [time, setTime] = useState(0);
+  const [params, setParams] = useState({
+    "building_file": 'data/kendall_buildings.json',
+    "road_file": "data/kendall_roads.shp",
+    "population": 1000,
+    });
+  const [loading, setLoading] = useState(false);
+  const pharseResponse = (data) => {
+      setBuildingData(data.building_data);
+      setResidentData(data.resident_data);
+      setPath(data.path);
+      setTime(data.time);
+  }
+  const [cache, setCache] = useState([]);
+  const [ duration, setDuration] = useState(1500);
+
+  
+
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.js</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+    <>
+    <Control
+      serverUrl={serverUrl}
+      pharseResponse={pharseResponse}
+      setParams = {setParams}
+      setLoading={setLoading}
+      setStepCount = {setStepCount}
+      setCache = {setCache}
+      stepCount =  {stepCount}
+      params = {params}
+      time = {time}
+      cache = {cache}
+      duration = {duration} 
+      >
+    </Control>
+    <SimMap 
+      buildingData={buildingData}
+      residentData={residentData}
+      path = {path}
+      stepCount ={stepCount}
+      duration = {duration}
+      >
+    </SimMap>
+    <Loading loading={loading}></Loading>
+    </>
   )
 }

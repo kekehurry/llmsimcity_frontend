@@ -1,0 +1,127 @@
+/* sidebar.module.css */
+.sidebar {
+    color: #fff; 
+    width: 300px; 
+    height: 100vh;
+    padding: 20px;
+    box-sizing: border-box;
+    position: fixed; 
+    top: 0; 
+    left: -350px; 
+    /* overflow-y: auto;  */
+    z-index: 1000;
+    transition: left 0.5s;
+}
+
+.sidebar.show {
+    left: 0;
+}
+
+.sidebarHeader {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    background-color: #151515e9;
+    height: 15vh;
+    font-size: 0.5em;
+    padding: 10px 20px;
+    border-radius: 10px;
+    box-shadow: #0c0c0c 0px 0px 10px 0px;
+  }
+
+  .sidebarHeader p{
+    font-size: 0.9em; 
+  }
+
+  .time {
+    display: block;
+    margin-top: 15px;
+    font-size:  6em; 
+    font-weight: bold;
+    text-align: center;
+  }
+  
+  .sidebarBody {
+    background-color: #151515e9;
+    height: 60vh;
+    margin-bottom: 10px; 
+    font-size: 0.5em;
+    padding: 10px 20px;
+    border-radius: 10px;
+    box-shadow: #0c0c0c 0px 0px 10px 0px;
+  }
+
+  .sidebarBody form{
+   padding-top: 20px;
+   margin-bottom: 10px;
+  }
+
+  .inputLabel {
+    color: #fff; 
+    margin: 10px 0;
+    font-weight: regular;
+  }
+  
+  .inputBox {
+    width: 100%;
+    outline: none;
+    height: 20px;
+    border-radius: 10px; 
+    margin: 1.5vh 0 1.5vh 0; 
+  }
+
+
+  .sidebarFooter {
+    background-color: #151515e9;
+    height: 15vh;
+    margin-bottom: 10px; 
+    font-size: 0.5em; 
+    padding-top: 2vh;
+    border-radius: 10px;
+    box-shadow: #0c0c0c 0px 0px 10px 0px;
+  }
+
+  .left{
+    float: left;
+    padding: 10px;
+    width: 50%;
+  }
+  .right{
+    float: right;
+    padding: 10px;
+    width:50%;
+  }
+  
+  /* Adjust the styles for different states of the buttons */
+  .button {
+    /* margin-top: 12px; */
+    margin-bottom: 10px; 
+    width: 100%;
+    height:30px;
+    background-color: #444; 
+    color: #fff; 
+    font-size: 1em;
+    border: none;
+    border-radius: 20px; 
+    cursor: pointer;
+    border: 2px solid transparent; 
+    font-weight: bold;
+  }
+  
+  .button:focus, .button:hover {
+    border-color: #f20075; 
+  }
+  
+  .activeButton {
+    margin-bottom: 10px; 
+    width: 100%;
+    height:30px;
+    background-color: rgb(242, 0, 117); 
+    color: #fff; 
+    font-size: 1em;
+    border: none;
+    border-radius: 20px; 
+    cursor: pointer;
+    border: 2px solid transparent; 
+  }
+
+  
