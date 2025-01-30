@@ -50,7 +50,7 @@
     box-shadow: #0c0c0c 0px 0px 10px 0px;
   }
 
-  .sidebarBody form{
+  .sidebarBody h2{
    padding-top: 20px;
    margin-bottom: 10px;
   }
@@ -69,6 +69,28 @@
     margin: 1.5vh 0 1.5vh 0; 
   }
 
+  .slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    background: #222;
+    outline: none;
+    height: 6px;
+    border-radius: 4px; 
+    margin: 1.5vh 0 1.5vh 0; 
+
+  }
+  
+  .slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 10px;
+    height: 10px;
+    background: rgb(242, 0, 117);
+    cursor: pointer;
+    border-radius: 50%;
+    position: relative;
+  }
 
   .sidebarFooter {
     background-color: #151515e9;

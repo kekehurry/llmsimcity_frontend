@@ -25,8 +25,7 @@ export default function Home() {
       setPath(data.path);
       setTime(data.time);
   }
-  const [cache, setCache] = useState([]);
-  const [ duration, setDuration] = useState(1500);
+  const [ duration, setDuration] = useState(2000);
 
   
 
@@ -38,11 +37,10 @@ export default function Home() {
       setParams = {setParams}
       setLoading={setLoading}
       setStepCount = {setStepCount}
-      setCache = {setCache}
+      setDuration = {setDuration}
       stepCount =  {stepCount}
       params = {params}
       time = {time}
-      cache = {cache}
       duration = {duration} 
       >
     </Control>

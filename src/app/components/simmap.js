@@ -3,9 +3,8 @@ import React, { useEffect, useState } from 'react';
 import Map from 'react-map-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import DeckGL from "@deck.gl/react";
-import { GeoJsonLayer,ScatterplotLayer,PointCloudLayer} from "@deck.gl/layers";
+import { GeoJsonLayer,ScatterplotLayer} from "@deck.gl/layers";
 import {TripsLayer} from '@deck.gl/geo-layers';
-import {SimpleMeshLayer} from '@deck.gl/mesh-layers';
 import * as THREE from 'three';
 
 
@@ -14,7 +13,7 @@ export default function SimMap({
   residentData,
   path,
   stepCount,
- duration}) {
+  duration}) {
 
   const accessToken = "pk.eyJ1Ijoia2VrZWh1cnJ5IiwiYSI6ImNsbzdncTlqaDA0aDEya3BiaWZuc3Q2dnAifQ.ln2R45SGy6_MTakR8XWnsw";
   const viewState = {

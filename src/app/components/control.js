@@ -2,12 +2,14 @@
 import styles from '../styles/control.module.css';
 import axios from 'axios';
 import { useState, useEffect,useRef, use } from 'react';
+import Slider from  '@mui/material/Slider';
 
 export default function Control({
     pharseResponse,
     setParams,
     setLoading,
     setStepCount,
+    setDuration,
     params,
     serverUrl,
     time,
@@ -15,35 +17,11 @@ export default function Control({
     duration
     }) {
 
-    //Animation for traffic flow
-    const [running, setRunning] = useState(false);
-    const [interval, setFirstInterval] = useState(null);
-    const [interval1, setSecondInterval] = useState(null);
-    const [index, setIndex] = useState(0);
-    const isExecutingRef = useRef(false);
 
-    //  Animation for cache
-    //  useEffect(() => {
-    //     const animate = async () => {
-    //     if (running){
-    //         axios.get(serverUrl + "/get_step_count")
-    //             .then(async (response) => {
-    //                 if(response.data <= stepCount+10){
-    //                     await cacheModel();
-    //                 }
-    //             })
-    //     }
-    //     };
-    //     if (!running) {
-    //     clearInterval(interval);
-    //     return;
-    //     }
-    //     setFirstInterval(setInterval(animate, 100));
-
-    //     return () => { clearInterval(interval);}
-    // }, [running]);
-    
     //Animation for auto step
+    const [running, setRunning] = useState(false);
+    const [interval, setInterval] = useState(null);
+    const isExecutingRef = useRef(false);
     useEffect(() => {
         const animate1 = () => {
             if (running) {
@@ -51,11 +29,11 @@ export default function Control({
             }
         };
         if (!running) {
-            clearInterval(interval1);
+            clearInterval(interval);
             return;
         }
-        setSecondInterval(setInterval(animate1, duration-500));
-        return () => { clearInterval(interval1); }
+        setInterval(setInterval(animate1, duration-500));
+        return () => { clearInterval(interval); }
     }, [running, stepCount]);
 
     //Panels
@@ -70,7 +48,6 @@ export default function Control({
     const [isActive, setIsActive] = useState(false);
     const [isResetActive, setIsRestActive] = useState(false);
     const [isSetActive, setIsSetActive] = useState(false);
-    const [intervalId, setIntervalId] = useState(null);
 
     //Init
     useEffect(() => {
@@ -108,6 +85,7 @@ export default function Control({
             isExecutingRef.current = false;
         }
     };
+
     //Reset
     const resetModel = (event) => {
         stopModel();
@@ -126,7 +104,8 @@ export default function Control({
             }
             );
     }
-    //Set
+
+    //Set Params
     const setModel = (event) => {
         stopModel();
         event.preventDefault();
@@ -142,12 +121,18 @@ export default function Control({
     }
 
     //Trigger Show
-    const [isSidebarVisible, setSidebarVisibility] = useState(true);
+    const [isSidebarVisible, setSidebarVisibility] = useState(false);
     useEffect(() => {
         const handleKeyDown = (event) => {
             if (event.key === 's') {
                 setSidebarVisibility(prevIsSidebarVisible => !prevIsSidebarVisible);
             } 
+            if (event.key==='8'){
+                startModel();
+            }
+            if (event.key==='9'){
+                window.location.reload();
+            }
         };
         document.addEventListener('keydown', handleKeyDown);
         // Clean up the event listener when the component unmounts
@@ -159,12 +144,12 @@ export default function Control({
     return (
         <div className={`${styles.sidebar} ${isSidebarVisible ? styles.show : ''}`}>
             <div className={styles.sidebarHeader}>
-                <h1>PUB-SIM</h1>
-                <p>Prosocial Urban Development</p>
+                <h1>Urban Simulator</h1>
+                <p>ABM developed by city science group</p>
                 <span className={styles.time}>{time}</span>
             </div>
             <div className={styles.sidebarBody}>
-                <h2> Init Incentive Intensity</h2>
+                <h2> Model Params</h2>
                 <form>
                     {
                         Object.keys(params).map((k) => (
@@ -175,6 +160,33 @@ export default function Control({
                         ))
                     }
                 </form>
+                <h2> Control Params</h2>
+                <span className={styles.inputLabel}>duration</span>
+                <Slider
+                    aria-label="Duration"
+                    defaultValue={2000}
+                    valueLabelDisplay="auto"
+                    step={500}
+                    marks
+                    min={1000}
+                    max={5000}
+                    sx={{
+                        height: "6px",
+                        color: 'rgb(242, 0, 117)',
+                        '& .MuiSlider-thumb': {
+                            width: "12px",
+                            height: "12px"
+                          },
+                        '& .MuiSlider-rail': {
+                            height: "5px"
+                        },
+                        '& .MuiSlider-track': {
+                            height: "5px"
+                        },
+                      }}
+                    onChange={(event) => {
+                        setDuration(event.target.value);}}
+                />
                 <button className={styles.activeButton} id="start" onClick={startModel}>Start</button>
             </div>
             <div className={styles.sidebarFooter}>
